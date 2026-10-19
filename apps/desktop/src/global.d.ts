@@ -252,7 +252,10 @@ declare global {
       }
       sshConfigHosts: () => Promise<DesktopSshHostsResult>
       sshResolveHost: (host: string) => Promise<DesktopSshResolveResult>
-      probeConnectionConfig: (remoteUrl: string) => Promise<DesktopConnectionProbeResult>
+      probeConnectionConfig: (
+        remoteUrl: string,
+        options?: { sshTunnel?: { host: string } | null }
+      ) => Promise<DesktopConnectionProbeResult>
       oauthLoginConnectionConfig: (
         remoteUrl: string,
         options?: DesktopOauthLoginOptions
@@ -1083,6 +1086,7 @@ export interface DesktopConnectionConfig {
   // encryption is opted out — plain text is the chosen mode there.
   remoteTokenPlainText: boolean
   remoteUrl: string
+  sshTunnel?: { host: string } | null
   // For a 'cloud' connection: the persisted Hermes Cloud org (slug or id) the
   // connected instance was discovered under, so Settings → Gateway can reopen
   // into that org. Empty string for remote/local.
@@ -1107,6 +1111,7 @@ export interface DesktopConnectionConfigInput {
   // user opt-in from the renderer.
   allowPlainTextToken?: boolean
   remoteUrl?: string
+  sshTunnel?: { host: string } | null
   // For a 'cloud' connection: the selected Hermes Cloud org (slug or id) to
   // persist so Settings can reopen into it. Ignored for remote/local modes.
   cloudOrg?: string
@@ -1152,6 +1157,7 @@ export type DesktopConnectionKind = 'cloud' | 'local' | 'remote' | 'ssh'
 // A registered agent source as the renderer sees it: token bytes never cross
 // the IPC boundary (preview + set flag instead, like DesktopConnectionConfig).
 export interface DesktopRegistryConnection {
+  sshTunnel?: { host: string }
   id: string
   kind: DesktopConnectionKind
   // Required, registry-unique device name ("Homelab", "Work laptop").
@@ -1195,6 +1201,7 @@ export interface DesktopConnectionsRegistry {
 }
 
 export interface DesktopRegistryConnectionInput {
+  sshTunnel?: { host: string } | null
   // Present for edits; omitted on create (the main process mints the id).
   id?: string
   kind: DesktopConnectionKind
@@ -1346,6 +1353,8 @@ export interface DesktopOauthLoginOptions {
   kind?: DesktopConnectionKind
   /** Draft auth mode ('oauth' | 'token') the save will persist. */
   authMode?: 'oauth' | 'token'
+  /** Draft SSH tunnel: sign in through it instead of the (remote loopback) URL. */
+  sshTunnel?: { host: string } | null
 }
 
 export interface DesktopOauthLoginResult {

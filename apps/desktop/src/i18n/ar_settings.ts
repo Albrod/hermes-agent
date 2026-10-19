@@ -1,3 +1,4 @@
+import { arSshTunnel } from './ar_ssh_tunnel'
 import { arUpdateChannel } from './ar_update_channel'
 import type { TranslationOverrides } from './define-locale'
 
@@ -12,6 +13,7 @@ export const arSettings = {
     noResults: 'لا توجد لغة مطابقة'
   },
   settings: {
+    connections: { sshTunnel: arSshTunnel },
     subpages: {
       appearanceTheme: 'السمة',
       appearanceTypography: 'الخطوط والتحجيم',

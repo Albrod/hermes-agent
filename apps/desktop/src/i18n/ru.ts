@@ -12,6 +12,7 @@ import { ruOnboarding } from './ru_onboarding'
 import { ruPluginSettings } from './ru_plugins'
 import { ruProjects } from './ru_projects'
 import { ruSharedMetrics } from './ru_shared_metrics'
+import { ruSshTunnel } from './ru_ssh_tunnel'
 import { ruThemePicker } from './ru_theme_picker'
 import { ruUpdateChannel } from './ru_update_channel'
 
@@ -901,9 +902,7 @@ export const ruOverrides = {
           sampleRate: 'Частота дискретизации аудио в Гц. Выше = лучшее качество, большие файлы.',
           bitRate: 'Битрейт MP3 в бит/с. Действует только когда кодек — mp3.'
         },
-        neutts: {
-          device: 'Локальное устройство инференса для NeuTTS.'
-        }
+        neutts: { device: 'Локальное устройство инференса для NeuTTS.' }
       },
       stt: {
         enabled: 'Включать локальное или провайдерное распознавание речи.',
@@ -1031,6 +1030,7 @@ export const ruOverrides = {
     },
     // v2 multi-connection registry: Settings → Gateways.
     connections: {
+      sshTunnel: ruSshTunnel,
       title: 'Зарегистрированные шлюзы',
       intro:
         'Управляйте этим устройством и всеми шлюзами Hermes, до которых можно дотянуться через удалённые, SSH или Cloud-соединения.',

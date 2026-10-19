@@ -71,6 +71,7 @@ export interface GatewaySettingsState {
   // disk (opted-in on a machine without secure storage). Drives the warning banner.
   remoteTokenPlainText: boolean
   remoteUrl: string
+  sshTunnel?: { host: string } | null
   cloudOrg: string
   sshHost: string
   sshUser: string
@@ -92,6 +93,7 @@ const EMPTY_STATE: GatewaySettingsState = {
   secureTokenStorage: true,
   remoteTokenPlainText: false,
   remoteUrl: '',
+  sshTunnel: undefined,
   cloudOrg: '',
   sshHost: '',
   sshUser: '',
@@ -335,7 +337,8 @@ function GatewayConnectionSettings({ embedded, standalone }: { embedded: boolean
       authMode: normalized.remoteAuthMode,
       oauthConnected: normalized.remoteOauthConnected,
       tokenSet: normalized.remoteTokenSet,
-      tokenPreview: normalized.remoteTokenPreview
+      tokenPreview: normalized.remoteTokenPreview,
+      sshTunnel: normalized.sshTunnel
     })
   }
 

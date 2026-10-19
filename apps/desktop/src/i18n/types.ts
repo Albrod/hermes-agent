@@ -22,6 +22,7 @@ import type { NoticeTranslations } from './types_notices'
 import type { OnboardingTranslations } from './types_onboarding'
 import type { SidebarProjectsTranslations } from './types_projects'
 import type { SharedMetricsTranslations } from './types_shared_metrics'
+import type { SshTunnelCopy } from './types_ssh_tunnel'
 import type { ThemePickerCopy } from './types_theme_picker'
 import type { UninstallSectionTranslations } from './types_uninstall_section'
 import type { UpdateChannelCopy } from './types_update_channel'
@@ -1073,6 +1074,7 @@ export interface Translations extends NoticeTranslations {
     }
     // v2 multi-connection registry: Settings → Connections.
     connections: {
+      sshTunnel: SshTunnelCopy
       title: string
       intro: string
       stagedNote: string
@@ -1515,9 +1517,7 @@ export interface Translations extends NoticeTranslations {
         paymentAndCredits: string
         usage: string
       }
-      usage: {
-        title: string
-      }
+      usage: { title: string }
       buyCredits: {
         customAmount: string
         title: string
